@@ -3,6 +3,7 @@
   "address": "https://192-168-1-57.lovense.club:30010/GetToys",
   "scanTime": 5,
   "limit": 10,
+  "timeIdleUntilStop":  10.0,
   "toys": [
     {
         "name": "",

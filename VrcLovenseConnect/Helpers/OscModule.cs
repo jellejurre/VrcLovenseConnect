@@ -1,4 +1,5 @@
 ﻿using Rug.Osc;
+using System.Diagnostics;
 using System.Net;
 using VrcLovenseConnect.ToyManagers;
 
@@ -19,6 +20,8 @@ namespace VrcLovenseConnect.Helpers
         internal float ActiveHaptics { get; set; }
 
         internal bool IsBooleanContact { get; set; }
+
+        internal float lastTimeStamp = Stopwatch.GetTimestamp();
 
         internal OscModule(Config config, IToyManager lovenseManager, IToyManager buttplugManager)
         {
@@ -58,11 +61,20 @@ namespace VrcLovenseConnect.Helpers
 //#else
                     messageReceived = oscReceiver.TryReceive(out OscPacket packet);
 #pragma warning restore S125
-//#endif
+                    //#endif
+                    float timePassed = (Stopwatch.GetTimestamp() - lastTimeStamp)/TimeSpan.TicksPerSecond;
+                    if (timePassed > config.timeIdleUntilStop)
+                    {
+                        foreach (var toy in config.Toys)
+                        {
+                            StopToy(toy);
+                        }
+                    }
 
                     // Message received, sends intensity to command the toy.
                     if (messageReceived)
                     {
+                        lastTimeStamp = Stopwatch.GetTimestamp();
                         message = packet as OscMessage;
 
                         // Browses all connected toys.

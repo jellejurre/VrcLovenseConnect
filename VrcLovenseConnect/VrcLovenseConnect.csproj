@@ -6,8 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
+	   <LangVersion>preview</LangVersion>
   </PropertyGroup>
-
+  
   <ItemGroup>
     <Content Include="Icon.ico" />
   </ItemGroup>

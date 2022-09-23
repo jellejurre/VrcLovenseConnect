@@ -45,6 +45,8 @@ namespace VrcLovenseConnect.Helpers
         /// </summary>
         public int SleepTime => Limit * 10;
 
+        public float timeIdleUntilStop { get; set; }
+
         public List<ToyConfig> Toys { get; set; }
 
         /// <summary>
